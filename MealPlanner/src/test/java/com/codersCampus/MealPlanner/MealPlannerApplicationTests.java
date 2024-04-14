@@ -1,10 +1,10 @@
-package com.codersCampus.mealPlaner;
+package com.codersCampus.MealPlanner;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class MealPlanerApplicationTests {
+class MealPlannerApplicationTests {
 
 	@Test
 	void contextLoads() {
