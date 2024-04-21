@@ -20,47 +20,49 @@ public class MealPlannerController {
 		this.restTemplate = restTemplate;
 	}
 
-	  @GetMapping("/mealplanner/day")
-	    public ResponseEntity<DayResponse> getDayMeals(@RequestParam(required = false, defaultValue ="0")String targetCalories, @RequestParam String diet, @RequestParam String exclude) {
-	        String url = UriComponentsBuilder.fromHttpUrl("https://api.spoonacular.com/mealplanner/generate")
-	                .queryParam("apiKey", "3983e0cd9c7e4a3d8b494af19d77aaf1")
-	                .queryParam("timeFrame", "day")
-	                .queryParam("targetCalories", targetCalories)
-	                .queryParam("diet", diet)
-	                .queryParam("exclude", exclude)
-	                .build()
-	                .toUriString();
-	        
-	        try {
-	            DayResponse response = restTemplate.getForObject(url, DayResponse.class);
-	            System.out.println("Day Response: " + response);
-	            return ResponseEntity.ok(response);
-	        } catch (Exception e) {
-	            // Handle exceptions
-	            e.printStackTrace();
-	            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-	        }
-	    }
+	@GetMapping("/mealplanner/day")
+	public ResponseEntity<String> getDayMeals(@RequestParam String targetCalories,
+	                                          @RequestParam String diet,
+	                                          @RequestParam String exclude) {
+	    String url = UriComponentsBuilder.fromHttpUrl("https://api.spoonacular.com/mealplanner/generate")
+	            .queryParam("apiKey", "3983e0cd9c7e4a3d8b494af19d77aaf1")
+	            .queryParam("timeFrame", "day")
+	            .queryParam("targetCalories", targetCalories)
+	            .queryParam("diet", diet)
+	            .queryParam("exclude", exclude)
+	            .build()
+	            .toUriString();
 
-	    @GetMapping("/mealplanner/week")
-	    public ResponseEntity<WeekResponse> getWeekMeals(@RequestParam String targetCalories, @RequestParam String diet, @RequestParam String exclude) {
-	        String url = UriComponentsBuilder.fromHttpUrl("https://api.spoonacular.com/mealplanner/generate")
-	                .queryParam("apiKey", "3983e0cd9c7e4a3d8b494af19d77aaf1")
-	                .queryParam("timeFrame", "week")
-	                .queryParam("targetCalories", targetCalories)
-	                .queryParam("diet", diet)
-	                .queryParam("exclude", exclude)
-	                .build()
-	                .toUriString();
-
-	        try {
-	            WeekResponse response = restTemplate.getForObject(url, WeekResponse.class);
-	            System.out.println("Week Response: " + response);
-	            return ResponseEntity.ok(response);
-	        } catch (Exception e) {
-	            // Handle exceptions
-	            e.printStackTrace();
-	            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-	        }
+	    try {
+	        DayResponse response = restTemplate.getForObject(url, DayResponse.class);
+	        String htmlResponse = ResponseFormatter.formatDayResponseAsHtml(response);
+	        return ResponseEntity.ok(htmlResponse);
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 	    }
 	}
+
+	@GetMapping("/mealplanner/week")
+	public ResponseEntity<String> getWeekMeals(@RequestParam String targetCalories,
+	                                           @RequestParam String diet,
+	                                           @RequestParam String exclude) {
+	    String url = UriComponentsBuilder.fromHttpUrl("https://api.spoonacular.com/mealplanner/generate")
+	            .queryParam("apiKey", "3983e0cd9c7e4a3d8b494af19d77aaf1")
+	            .queryParam("timeFrame", "week")
+	            .queryParam("targetCalories", targetCalories)
+	            .queryParam("diet", diet)
+	            .queryParam("exclude", exclude)
+	            .build()
+	            .toUriString();
+
+	    try {
+	        WeekResponse response = restTemplate.getForObject(url, WeekResponse.class);
+	        String htmlResponse = ResponseFormatter.formatWeekResponseAsHtml(response);
+	        return ResponseEntity.ok(htmlResponse);
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+	    }
+	}
+}
