@@ -21,16 +21,16 @@ public class MealPlannerController {
 	}
 
 	  @GetMapping("/mealplanner/day")
-	    public ResponseEntity<DayResponse> getDayMeals(@RequestParam String targetCalories, @RequestParam String diet, @RequestParam String exclude) {
+	    public ResponseEntity<DayResponse> getDayMeals(@RequestParam(required = false, defaultValue ="0")String targetCalories, @RequestParam String diet, @RequestParam String exclude) {
 	        String url = UriComponentsBuilder.fromHttpUrl("https://api.spoonacular.com/mealplanner/generate")
 	                .queryParam("apiKey", "3983e0cd9c7e4a3d8b494af19d77aaf1")
 	                .queryParam("timeFrame", "day")
-	                .queryParam("targetCalories", "1500")
-	                .queryParam("diet", "ketogenic")
-	                .queryParam("exclude", "shellfish")
+	                .queryParam("targetCalories", targetCalories)
+	                .queryParam("diet", diet)
+	                .queryParam("exclude", exclude)
 	                .build()
 	                .toUriString();
-
+	        
 	        try {
 	            DayResponse response = restTemplate.getForObject(url, DayResponse.class);
 	            System.out.println("Day Response: " + response);
@@ -47,9 +47,9 @@ public class MealPlannerController {
 	        String url = UriComponentsBuilder.fromHttpUrl("https://api.spoonacular.com/mealplanner/generate")
 	                .queryParam("apiKey", "3983e0cd9c7e4a3d8b494af19d77aaf1")
 	                .queryParam("timeFrame", "week")
-	                .queryParam("targetCalories", "6000")
-	                .queryParam("diet", "ketogenic")
-	                .queryParam("exclude", "shellfish")
+	                .queryParam("targetCalories", targetCalories)
+	                .queryParam("diet", diet)
+	                .queryParam("exclude", exclude)
 	                .build()
 	                .toUriString();
 

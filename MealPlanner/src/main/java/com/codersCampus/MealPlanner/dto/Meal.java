@@ -1,33 +1,66 @@
 package com.codersCampus.MealPlanner.dto;
 
 public class Meal {
-	private String timeFrame;
-	private int targetCalories;
-	private String diet;
-	private String exclude;
-	public String getTimeFrame() {
-		return timeFrame;
+	private int id;
+	private String title;
+	private String imageType;
+	private int readyInMinutes;
+	private int servings;
+	private String sourceUrl;
+
+	public int getId() {
+		return id;
 	}
-	public void setTimeFrame(String timeFrame) {
-		this.timeFrame = timeFrame;
+
+	public void setId(int id) {
+		this.id = id;
 	}
-	public int getTargetCalories() {
-		return targetCalories;
+
+	public String getTitle() {
+		return title;
 	}
-	public void setTargetCalories(int targetCalories) {
-		this.targetCalories = targetCalories;
+
+	public void setTitle(String title) {
+		this.title = title;
 	}
-	public String getDiet() {
-		return diet;
+
+	public String getImageType() {
+		return imageType;
 	}
-	public void setDiet(String diet) {
-		this.diet = diet;
+
+	public void setImageType(String imageType) {
+		this.imageType = imageType;
 	}
-	public String getExclude() {
-		return exclude;
+
+	public int getReadyInMinutes() {
+		return readyInMinutes;
 	}
-	public void setExclude(String exclude) {
-		this.exclude = exclude;
+
+	public void setReadyInMinutes(int readyInMinutes) {
+		this.readyInMinutes = readyInMinutes;
+	}
+
+	public int getServings() {
+		return servings;
+	}
+
+	public void setServings(int servings) {
+		this.servings = servings;
+	}
+
+	public String getSourceUrl() {
+		return sourceUrl;
+	}
+
+	public void setSourceUrl(String sourceUrl) {
+		this.sourceUrl = sourceUrl;
+	}
+
+	@Override
+	public String toString() {
+		return "Meal{" + "id=" + id + ", title='" + title + '\'' + ", imageType='" + imageType + '\''
+				+ ", readyInMinutes=" + readyInMinutes + ", servings=" + servings + ", sourceUrl='" + sourceUrl + '\''
+				+ '}';
 	}
 
 }

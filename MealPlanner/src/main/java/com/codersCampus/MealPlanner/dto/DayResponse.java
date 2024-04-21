@@ -3,33 +3,27 @@ package com.codersCampus.MealPlanner.dto;
 import java.util.List;
 
 public class DayResponse {
-	private String timeFrame;
-	private int targetCalories;
-	private String diet;
-	private String exclude;
-	public String getTimeFrame() {
-		return timeFrame;
+    private List<Meal> meals;
+    private Nutrients nutrients;
+
+    public List<Meal> getMeals() {
+		return meals;
 	}
-	public void setTimeFrame(String timeFrame) {
-		this.timeFrame = timeFrame;
+	public void setMeals(List<Meal> meals) {
+		this.meals = meals;
 	}
-	public int getTargetCalories() {
-		return targetCalories;
+	public Nutrients getNutrients() {
+		return nutrients;
 	}
-	public void setTargetCalories(int targetCalories) {
-		this.targetCalories = targetCalories;
+	public void setNutrients(Nutrients nutrients) {
+		this.nutrients = nutrients;
 	}
-	public String getDiet() {
-		return diet;
-	}
-	public void setDiet(String diet) {
-		this.diet = diet;
-	}
-	public String getExclude() {
-		return exclude;
-	}
-	public void setExclude(String exclude) {
-		this.exclude = exclude;
+	
+	@Override
+    public String toString() {
+        return "DayResponse{" +
+                "meals=" + meals +
+				", nutrients=" + nutrients +           '}';
 	}
 
 }
